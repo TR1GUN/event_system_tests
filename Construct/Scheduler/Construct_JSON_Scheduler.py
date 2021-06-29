@@ -62,7 +62,6 @@ class SchedulerJSON:
         max_id = execute_command(command=command)
 
         # idx = None
-        print(max_id)
         for i in max_id:
             idx = i.get('max(Id)')
         if idx is None:
@@ -88,31 +87,50 @@ class SchedulerJSON:
 
         return id_list
 
-    def POST(self, mon: bool = True, day: bool = True, hour: bool = True, count: int = 1, min: int = None,
+    def POST(self, mon: bool = True, day: bool = True, hour: bool = True, generate: int = 1, min: int = None,
              start: int = 0):
         """
         Метод для перезаписи\ дополнения записей - Це важно
 
-
+        :param generate: - int/list - Количество записей что генерируем / или сам лист Settings
         :param mon: - bool - Генерируем или нет месяцы
         :param day: - bool - Генерируем или нет дни
         :param hour: - bool - Генерируем или нет часы
-        :param count: - int - Количество записей что генерируем
+
         :param min: - int - Устанавливает нужное количество минут для всех элементов
         :param start: - int - стартовый айдишник - Если установлен в 0 то старт начинается с последней записи
         :return:
         """
+
+        # Итак - основная логика работы -
+        # 1) в generate можно спускать -
+        #     - количество - и они генерируются ПО заданым булевым параметрам  от числа что указано в start
+        #         - Поле тупес подставляется
+        #         - Поле тупес генерируется уникальным
+        #         - Поле тупес генерируется одинаковое для всех
+        #     - список имен и они подставляются
+        #     - Уже готовый Settings
+
         if start < 1:
             start = int(self._find_max_value()) + 1
 
-        settings = []
-        for idx in range(count):
-            # Генерируем один из элементов
-            setting = ConstructFieldSettings(idx=start + idx, mon=mon, day=day, hour=hour, min=min).settings
-            settings.append(setting)
+        from Construct.Scheduler.Template_Generate_Settings import GenerateSettingsScheduler
 
+        settings = GenerateSettingsScheduler(
+            # Количество генераций - или полный список того что должны сгенерировать
+            generate=generate,
+            # Наличие месяца
+            mon=mon,
+            # Наличие для
+            day=day,
+            # наличие часа
+            hour=hour,
+            # Установка минут
+            min=min,
+            # айдищник старта генерации
+            start=start).settings
         # Теперь получившееся недоразумение берем и дополняем параметрами которые мы дополняем
-        settings = self._update_settings(settings)
+        # settings = self._update_settings(settings)
 
         # ТЕПЕРЬ ЭТО ОБОРАЧИВАЕМ
         JSON = deepcopy(self.JSON)

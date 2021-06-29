@@ -16,6 +16,8 @@ JSON = """{"method":"get", "table":"Scheduler"}"""
 JSON = """{"method":"put", "table":"MeterTemplates","settings":[{"name":"vasya", "meters":[1,2,4]}, {"name":"pupkin", "meters":[1,2,4]}]}"""
 JSON = """{"method":"put", "table":"MeterDataTemplates","settings":[{"name":"Дурное", "types":["one","two"]}, {"name":"влияние"}]}"""
 # JSON = """{"method":"put", "table":"MeterDataTemplates","settings":[{"name":"vasya", "types":["one","two"]}, {"name":"pupkin"}]}"""
+
+JSON = """{"method":"post", "table":"Scheduler", "settings":[{"id":1, "mon":1, "day":2, "hour":4, "min":8}, {"id":1, "mon":4, "day":6, "hour":8, "min":10}]}"""
 setup = Setup(JSON=JSON, API=api, type_connect='virtualbox')
 
 print(setup.answer_JSON)

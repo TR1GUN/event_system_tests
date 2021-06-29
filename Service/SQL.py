@@ -34,8 +34,8 @@ def execute_command_to_shared_data_base(command: str):
     import sqlite3
     from Service.ConfigParser import dbpath
     conn = sqlite3.connect(dbpath)
-    print(dbpath)
-    print(command)
+    # print(dbpath)
+    # print(command)
 
     conn.row_factory = dict_factory
     c = conn.cursor()
