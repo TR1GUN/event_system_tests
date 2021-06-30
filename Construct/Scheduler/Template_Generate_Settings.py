@@ -93,7 +93,5 @@ class GenerateSettingsScheduler:
             if setting.get('min') is None:
                 setting['min'] = 10
 
-
-
         return settings
 

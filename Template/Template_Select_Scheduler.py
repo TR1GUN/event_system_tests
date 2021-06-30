@@ -1,7 +1,8 @@
 # Итак - Здесь селектим таблицу Scheduler
+from Template.Template_SQL_Database import TemplateSQL
 
 
-class SelectScheduler:
+class SelectScheduler(TemplateSQL):
     """
 
     Класс для работы с таблицей Scheduler
@@ -14,20 +15,6 @@ class SelectScheduler:
 
         self.result = self.execute_dict.get(JSON['method'])(self, JSON['settings'])
 
-    def execute_command(self, command):
-
-        """
-        Исполянем команду
-        :param command:
-        :return:
-        """
-
-        from Service.SQL import execute_command
-
-        result = execute_command(command=command)
-
-        return result
-
     def _select_POST(self, settings):
 
         """
@@ -38,29 +25,27 @@ class SelectScheduler:
 
         """
 
-
-
         # Получаем список айдишников
 
         ids = []
-        print('IJJJJJJ')
+
         for i in settings:
             idx = i.get('id')
-            print(i)
             if idx is not None:
                 ids.append(idx)
 
         # Теперь собираем команду
         fields = ' Id '
 
-        command = ' SELECT ' + ' * ' + ' FROM ' + str(self.table) + ' WHERE ' + fields + ' IN '
+        select_fields = ' Id AS id , Mon AS mon ,  Day AS day , Hour AS hour , Min AS min '
+
+        command = ' SELECT ' + select_fields + ' FROM ' + str(self.table) + ' WHERE ' + fields + ' IN '
 
         command_ids = ''
 
-
         for i in ids:
             command_ids = ' ' + command_ids + str(i) + ' ,'
-        print('IJJJJJJ', ids)
+
         # Теперь обрезаем последнюю запятую
 
         command_ids = ' ( ' + command_ids[:-1] + ' ) '
@@ -73,7 +58,31 @@ class SelectScheduler:
 
         return result
 
+    def _select_PUT(self, settings):
+
+        """
+        Селектим для пост запроса
+
+        :param settings:
+        :return:
+
+        """
+
+        # Теперь собираем команду
+
+        select_fields = ' Id AS id , Mon AS mon ,  Day AS day , Hour AS hour , Min AS min '
+
+        command = ' SELECT ' + select_fields + ' FROM ' + str(self.table)
+
+        # И запускаем ее в космос
+
+        result = self.execute_command(command=command)
+
+        return result
+
+    # =========================================================================================================
     execute_dict = \
         {
-            'post': _select_POST
+            'post': _select_POST,
+            'put': _select_PUT
         }

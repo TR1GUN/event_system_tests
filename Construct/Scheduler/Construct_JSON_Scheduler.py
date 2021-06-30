@@ -234,7 +234,6 @@ class SchedulerJSON:
         :param ids: - int - Если задан int , то получаем нужное количество id из БД.При 0 - помещаем туда все ,
         если спускаем list / tuple / set - то что поделать вставляем их
 
-
         :return:
 
         """
@@ -273,3 +272,4 @@ class SchedulerJSON:
         JSON["ids"] = list(idx)
         # И ОТДАЕМ В ЗАД
         return JSON
+
