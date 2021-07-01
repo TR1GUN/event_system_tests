@@ -13,6 +13,7 @@ class Scheduler(EventDataAPI):
     _template_post = {'table': 'Scheduler', 'method': 'post', 'settings': [{'min': 9, 'id': 1}]}
     _template_put = {'table': 'Scheduler', 'method': 'put', 'settings': [{'min': 9, 'id': 1}]}
     _template_get = {"method": "get", "table": "Scheduler"}
+    _template_delete = {"method":"delete", "table":"Scheduler"}
 
     def POST(self, JSON: dict = _template_post):
         # Отправляем данные
@@ -24,7 +25,6 @@ class Scheduler(EventDataAPI):
         print(JSON['settings'])
         assert result == JSON['settings']
 
-
     def PUT(self, JSON: dict = _template_put):
         # Отправляем данные
         Answer = self.SETUP(JSON)
@@ -35,8 +35,7 @@ class Scheduler(EventDataAPI):
         print(JSON['settings'])
         assert result == JSON['settings']
 
-
-    def GET(self, JSON: dict = _template_post, ):
+    def GET(self, JSON: dict = _template_get, ):
         """
         Метод для тестирования
 
@@ -44,18 +43,24 @@ class Scheduler(EventDataAPI):
         :return:
         """
 
-        # Первое - Записываем POST запрос
+    def DELETE(self, JSON: dict = _template_delete, ):
+        """
+        Метод для тестирования
 
-        record = DataBase().INSERT(JSON=JSON)
+        :param JSON:
+        :return:
+        """
+
+
 # ТУT все серьезно. генерируем данные по ID
 
 # Генерируем JSON
 from Construct.Scheduler.Construct_JSON_Scheduler import SchedulerJSON
-#
-JSON = SchedulerJSON().POST(generate=3)['settings'] + SchedulerJSON().POST()['settings'] + SchedulerJSON().POST()[
-    'settings']
-#
-JSON = SchedulerJSON().POST(generate=JSON)
+
+
+
+
+JSON = SchedulerJSON(generate=5).DELETE(ids=2)
 
 
 # print(JSON)
@@ -66,4 +71,4 @@ JSON = SchedulerJSON().POST(generate=JSON)
 
 # Scheduler().POST()
 
-Scheduler().GET(JSON=JSON)
+# Scheduler().GET(JSON=JSON)

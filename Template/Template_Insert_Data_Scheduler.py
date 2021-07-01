@@ -3,7 +3,6 @@ from Template.Template_SQL_Database import TemplateSQL
 
 
 class InsertIntoScheduler(TemplateSQL):
-
     result = None
 
     """
@@ -37,39 +36,48 @@ class InsertIntoScheduler(TemplateSQL):
         """
 
         from copy import deepcopy
-
+        # итак - отделяем мух от котлет
 
         # Итак - Составляем массив из команд
         print(data)
         command_insert = ' INSERT INTO ' + self.table
 
         command = ' '
+        # сначала делаем строку полей
+        command_field = ' '
+        for field_data_base in self.field:
+            command_field = command_field + str(self.field.get(field_data_base)) + ' , '
 
-        for Element in data :
-            command_field = ' '
+        command_field = command_field[:-2]
+        # получаем необходимые рабочие поля
+        Field_all = list(self.field.keys())
+        # Теперь берем значения
+        for Element in data:
+
             command_value = ' '
-            for field in Element :
 
-                command_field = command_field + str(self.field.get(field)) + ' , '
-                command_value = command_value + str(Element.get(field)) + ' , '
+            for field in Field_all:
+                value = Element.get(field)
+                if value == None :
+                    value = 'Null'
+                command_value = command_value + str(value) + ' , '
 
-            command = command + command_insert + ' ( ' + command_field[:-2] + ' ) ' + ' VALUES ' +\
-                                                 ' ( ' + command_value[:-2] + ' ) ' + ' ; '
+            # Слупливаем это
+            command = command + ' ( ' + command_value[:-2] + ' ) , '
+
+        command = command[:-2]
+
+        command = command_insert + ' ( ' + command_field + ' ) ' + ' VALUES ' + command  + ' ; '
+
         print(command)
         # Теперь отправляем в космос
 
         result = self.execute_command(command)
 
-
         return result
 
+    def _update_data(self):
+
+        pass
+        # Итак - если у нас уже этот айдишник есть - перезаписываем значения
     # =========================================================================================================
-
-
-
-
-
-
-
-
-

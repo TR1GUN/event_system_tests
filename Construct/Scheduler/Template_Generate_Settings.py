@@ -17,8 +17,9 @@ class GenerateSettingsScheduler:
                  hour: bool = True,
                  # Установка минут
                  min: int = None,
-                 # айдищник старта генерации
-                 start: int = 0):
+                 # айдищник старта генерации - Вырезаем
+                 # start: int = 0
+                 ):
 
         # Итак - основная логика работы -
         # 1) в НЭЙМ можно спускать
@@ -37,7 +38,8 @@ class GenerateSettingsScheduler:
         if type(generate) == int:
             # Генерируем нужное количество данных
             settings = []
-
+            # ищем максимальное значение - это будет точкой отсчета
+            start = self._find_max_value() + 1
             for idx in range(generate):
                 # Генерируем один из элементов
                 setting = ConstructFieldSettings(idx=start + idx, mon=mon, day=day, hour=hour, min=min).settings
@@ -56,7 +58,6 @@ class GenerateSettingsScheduler:
                     setting = ConstructFieldSettings(idx=generate[idx], mon=mon, day=day, hour=hour, min=min).settings
                     settings.append(setting)
 
-
             elif type(generate[0]) == dict:
                 # Если у нас спускается то что должны пристроить - то
                 settings = list(generate)
@@ -66,6 +67,9 @@ class GenerateSettingsScheduler:
                 settings = []
         # ----->
         else:
+            # ищем максимальное значение - это будет точкой отсчета
+            start = self._find_max_value()
+
             # Иначе генерируем ОДНУ ШТУКУ
             setting = ConstructFieldSettings(idx=start + 1, mon=mon, day=day, hour=hour, min=min).settings
 
@@ -74,9 +78,7 @@ class GenerateSettingsScheduler:
 
         self.settings = settings
 
-
     def _checkup_correct_JSON(self, settings):
-
 
         """
         Проверка Корректности типов
@@ -95,3 +97,77 @@ class GenerateSettingsScheduler:
 
         return settings
 
+    def _find_max_value(self):
+        """
+        В Этом методе ищем максимальное значение
+
+        :return:
+        """
+        from Service.SQL import execute_command
+        command = 'SELECT max(Id) FROM Scheduler'
+
+        max_id = execute_command(command=command)
+
+        # idx = None
+        for i in max_id:
+            idx = i.get('max(Id)')
+        if idx is None:
+            idx = 0
+
+        return idx
+
+
+# //---------------------------------------------------------------------------------------------------------------
+#                       класс ДЛЯ ФОРМИРОВАНИЯ поля id ДЯЛ GET\DELETE запроса
+# //---------------------------------------------------------------------------------------------------------------
+
+class GenerateIdsScheduler:
+    """
+    Класс для формирования поля IDS
+
+    """
+    idx = [0]
+
+    def __init__(self, ids=0, settings=[{"id": 1}]):
+        """
+        Конструктор
+
+        :param ids:
+        :param settings:
+
+        """
+
+        # ЕСЛИ у нас int
+        if (type(ids) == int) and (ids > 0):
+            # сначала получаем все айдишники что есть
+            all_idx = []
+            for i in settings :
+                all_idx.append(i.get('id'))
+
+            # чтоб не выстрелить себе в ногу
+            if ids > len(all_idx):
+                ids = len(all_idx)
+
+           # ТЕПЕРЬ - ставим нужные айдишники из сгенерированных
+            from random import randint
+            idx = set()
+            while len(idx) < ids:
+                idx.add(all_idx[randint(0, (len(all_idx) - 1))])
+            idx = list(idx)
+
+        # ЕСЛИ У НАС СПИСОК - Проверяем - все ли айдишники есть
+        elif (type(ids) == list) or (type(ids) == tuple) or (type(ids) == set):
+            ids = set(ids)
+            # сначала получаем все айдишники что есть
+            all_idx = set()
+            for i in settings :
+                all_idx.add(i.get('id'))
+
+            # Теперь перебираем все айдишники
+            idx = ids & all_idx
+            idx = list(idx)
+
+        else:
+            idx = []
+
+        self.idx = idx

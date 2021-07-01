@@ -39,7 +39,12 @@ def execute_command_to_shared_data_base(command: str):
 
     conn.row_factory = dict_factory
     c = conn.cursor()
+
+
     c.execute(command)
+    print(command)
+    # c.executemany(command)
+
     conn.commit()
     table = c.fetchall()
     c.close()
