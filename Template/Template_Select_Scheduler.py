@@ -177,4 +177,6 @@ class SelectScheduler(TemplateSQL):
         {
             'post': _select_POST,
             'put': _select_PUT,
+            'get': _select_GET,
+            'delete': _select_DELETE,
         }
