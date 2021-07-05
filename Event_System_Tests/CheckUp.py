@@ -224,3 +224,109 @@ class CheckUpPUT(CheckUp):
     def __init__(self, data_base: list, JSON: list):
         # Получаем -
         self.error = self._checkup(data_base=data_base, JSON=JSON)
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+# ----------------------------------------------------------------------------------------------------------------------
+class CheckUpPOST(CheckUp):
+    """
+    Здесь проводим наш любимый сравнивать БД и JSON
+
+    """
+    Key_value_inequality = 'Неравенство значений Ключа'
+    Key_value_in_JSON = 'Значение ключа в  JSON ответа'
+    Key_value_in_DataBase = 'Значение ключа в БД'
+
+    error = []
+
+    def __init__(self, data_base: list, JSON: list):
+        # Получаем -
+        self.error = self._checkup(data_base=data_base, JSON=JSON)
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+# ----------------------------------------------------------------------------------------------------------------------
+class CheckUpDELETE(CheckUp):
+    """
+    Здесь проводим наш любимый сравнивать БД и JSON
+
+    """
+    Key_value_inequality = 'Неравенство значений Ключа'
+    Key_value_in_JSON = 'Значение ключа в  JSON ответа'
+    Key_value_in_DataBase = 'Значение ключа в БД'
+
+    error = []
+
+    _error_str = 'ОШИБКА'
+
+    def __init__(self,
+                 # БД что была ДО
+                 database_before: list,
+                 # БД что была ПОСЛЕ
+                 database_after: list,
+                 # сам JSON
+                 JSON: dict):
+        """
+        для метода DELETE делаем другой способ проверки
+        :param database_before: БД что была ДО
+        :param database_after: БД что была ПОСЛЕ
+        :param JSON: сам JSON
+        """
+
+        self.error = []
+        # Получаем -
+        ids_list = JSON.get('ids')
+        # ЕСЛИ МЫ УДАЛЯЕМ ВСЕ - ТО БД долдна быть псоле пустая
+        if ids_list is None:
+            if len(database_after) > 0:
+                self.error = [{
+                    self._error_str: 'ИЗ БД НЕ ВСЕ УДАЛЕННО',
+                    'все должно было удалиться ,но  остались записи ': database_after,
+
+                }]
+
+        else:
+
+            from Template.Template_DataBase_Was_Recording import DataBaseWasRecording
+
+            # Получаем что мы удалили
+            data_base_was_deleted = DataBaseWasRecording(database_before=database_after,
+                                                         database_after=database_before).database_was_recording
+
+            self.error = self._checkup(data_base_was_deleted=data_base_was_deleted, JSON=JSON)
+
+    def _checkup(self, data_base_was_deleted: list, JSON: dict):
+        """
+        Здесь переопределяем наши методы
+
+        :param data_base_was_deleted: - то что удалено
+        :param JSON: то что должно было быть удаленно
+        :return:
+        """
+        error = []
+
+        ids = JSON.get('ids')
+
+        from copy import deepcopy
+        all_list = deepcopy(ids)
+
+        # Итак - Берем
+        for idx in ids:
+
+            for element in data_base_was_deleted:
+
+                if element.get('id') == idx:
+                    # Удаляем его
+                    all_list.remove(idx)
+
+        # Если что то не удалилось - пишем ощибку
+        if len(all_list) > 0:
+            error_str = {
+                self._error_str: 'ИЗ БД НЕ ВСЕ УДАЛЕННО',
+                'Остались ID': all_list,
+                'Должно было удалиться': data_base_was_deleted
+            }
+
+            error.append(error_str)
+
+        return error

@@ -42,7 +42,7 @@ def execute_command_to_shared_data_base(command: str):
 
 
     c.execute(command)
-    print(command)
+    # print(command)
     # c.executemany(command)
 
     conn.commit()

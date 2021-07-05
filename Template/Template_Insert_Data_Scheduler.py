@@ -69,7 +69,7 @@ class InsertIntoScheduler(TemplateSQL):
 
         command = command_insert + ' ( ' + command_field + ' ) ' + ' VALUES ' + command  + ' ; '
 
-        print(command)
+        # print(command)
         # Теперь отправляем в космос
 
         result = self.execute_command(command)
