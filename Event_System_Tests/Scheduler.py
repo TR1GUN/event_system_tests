@@ -3,7 +3,7 @@ from Event_System_Tests.Template_EventDataAPI import EventDataAPI
 from time import sleep
 
 from Template.Template_DataBase_by_JSON import DataBase
-from Event_System_Tests.CheckUp import CheckUpGET , CheckUpPUT ,CheckUpPOST ,CheckUpDELETE
+from Template.CheckUp_Scheduler import CheckUpGET , CheckUpPUT ,CheckUpPOST ,CheckUpDELETE
 
 class Scheduler(EventDataAPI):
     """
@@ -40,8 +40,8 @@ class Scheduler(EventDataAPI):
         # print(result)
         return result
 
-
     # //----------------------------------             PUT запрос        ------------------------------------------
+
     def PUT(self, JSON: dict = _template_put):
 
         """

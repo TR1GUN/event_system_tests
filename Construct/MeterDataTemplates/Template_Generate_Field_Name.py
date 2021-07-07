@@ -5,7 +5,7 @@ class GenerateFieldName:
     Класс для генерации ну
 
     """
-
+    adding_name = 'Adding_name_'
     settings = []
 
     def __init__(self, name: int = 1):
@@ -14,7 +14,8 @@ class GenerateFieldName:
             name = 1
         settings = []
 
-        adding_name = 'Adding_name_'
+        adding_name = self.adding_name
+
         for i in range(name):
             settings.append({"name": adding_name + str(i)})
 
@@ -34,3 +35,4 @@ class GenerateFieldName:
 
 
         return names
+

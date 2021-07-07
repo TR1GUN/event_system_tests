@@ -5,7 +5,7 @@ class TemplateSQL:
     def execute_command(self, command):
 
         """
-        Исполянем команду
+        Исполняем команду
         :param command:
         :return:
         """

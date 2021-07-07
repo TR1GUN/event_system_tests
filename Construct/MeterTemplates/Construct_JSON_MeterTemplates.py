@@ -7,223 +7,173 @@ class MeterTemplatesJSON(TemplateJSON):
     Класс который конструирует JSON для таблицы MeterTemplates
 
     """
-
-    custom_data = {}
+    Generate_data = None
 
     JSON = {"table": "MeterTemplates"}
 
-    def __init__(self, custom_data: list = []):
-        self.custom_data = custom_data
+    def __init__(self, name: int = 1, meter: int = 3, unique_meter: bool = True):
 
-    # def _generate_values(self, count_setting, count_meter, unique_meter):
-    #
-    #     """
-    #     Генерация поля сеттинг - Это очень важно
-    #
-    #     :param count_setting:
-    #     :param count_meter:
-    #     :param unique_meter:
-    #     :return:
-    #     """
-    #
-    #     from Construct.MeterTemplates.Template_Generate_MeterId import GenerateMeterId
-    #     settings = []
-    #     if unique_meter:
-    #         # Ищем самый страрший счетчик
-    #         Meter_Id = 0
-    #         for i in count_setting:
-    #             Meter_Id_list = GenerateMeterId(count_meter=count_meter, start=Meter_Id).MeterId
-    #             element = {"name": "Test_Name_" + str(i), "meters": Meter_Id_list}
-    #             Meter_Id = max(Meter_Id_list)
-    #             settings.append(element)
-    #     else:
-    #         # очень важный момент - если у нас указано 0 в количетве счетчиков - то ничего не ставим
-    #         Meter_Id_list = GenerateMeterId(count_meter=count_meter, start=0).MeterId
-    #         for i in count_setting:
-    #             element = {"name": "Test_Name_" + str(i)}
-    #             if count_meter > 0:
-    #                 element["meters"] = Meter_Id_list
-    #             settings.append(element)
-    #
-    #     return settings
-    #
-    # def POST(self, count_setting: int = 1, count_meter: int = 3, unique_meter: bool = True):
-    #
-    #     """
-    #     Метод для работы с методом пост
-    #     :param unique_meter:
-    #     :param count_setting: Количество Элементов в нашей п
-    #     :param count_meter:
-    #     :return:
-    #     """
-    #
-    #     # Итак - для начала определяем что подали - Если у нас уже спущенные значения - то забиваем на все и ставим
-    #     # их с проверкой
-    #     if type(count_setting) == list:
-    #         settings = self._custom_settings(settings=count_setting)
-    #     elif type(count_setting) == int:
-    #         settings = self._generate_values(count_setting=count_setting,
-    #                                          count_meter=count_meter,
-    #                                          unique_meter=unique_meter)
-    #     else:
-    #         settings = self._generate_values(count_setting=1,
-    #                                          count_meter=1,
-    #                                          unique_meter=False)
-    #
-    #     # ТЕПЕРЬ ЭТО ОБОРАЧИВАЕМ
-    #     JSON = deepcopy(self.JSON)
-    #
-    #     JSON["method"] = "post"
-    #     JSON["settings"] = list(settings)
-    #     # И ОТДАЕМ В ЗАД
-    #
-    #     return JSON
-    #
-    # def PUT(self, count_setting: int = 1, count_meter: int = 3, unique_meter: bool = True):
-    #
-    #     """
-    #     Метод для работы с методом пост
-    #     :param unique_meter:
-    #     :param count_setting: Количество Элементов в нашей п
-    #     :param count_meter:
-    #     :return:
-    #     """
-    #
-    #     # Итак - для начала определяем что подали - Если у нас уже спущенные значения - то забиваем на все и ставим
-    #     # их с проверкой
-    #     if type(count_setting) == list:
-    #         settings = self._custom_settings(settings=count_setting)
-    #     elif type(count_setting) == int:
-    #         settings = self._generate_values(count_setting=count_setting,
-    #                                          count_meter=count_meter,
-    #                                          unique_meter=unique_meter)
-    #     else:
-    #         settings = self._generate_values(count_setting=1,
-    #                                          count_meter=1,
-    #                                          unique_meter=False)
-    #
-    #     # ТЕПЕРЬ ЭТО ОБОРАЧИВАЕМ
-    #     JSON = deepcopy(self.JSON)
-    #
-    #     JSON["method"] = "put"
-    #     JSON["settings"] = list(settings)
-    #     # И ОТДАЕМ В ЗАД
-    #
-    #     return JSON
-    #
-    # def GET(self, names: int):
-    #     """
-    #     Получение Имени по
-    #     Здесь генерируем запрос для получения нужных данных
-    #
-    #     :param ids: - int - Если задан int , то получаем нужное количество id из БД.При 0 - помещаем туда все ,
-    #     если спускаем list / tuple / set - то что поделать вставляем их
-    #     :param names:
-    #     :return:
-    #     """
-    #
-    #     # ТЕПЕРЬ ЭТО ОБОРАЧИВАЕМ
-    #     JSON = deepcopy(self.JSON)
-    #
-    #     JSON["method"] = "get"
-    #
-    #     if (type(names) == list) or (type(names) == tuple) or (type(names) == set):
-    #         JSON["names"] = list(names)
-    #
-    #     if names > 0:
-    #         names_list = []
-    #         for i in range(names):
-    #             element = "Test_Name_" + str(i)
-    #             names_list.append(element)
-    #         JSON["names"] = names_list
-    #
-    #     return JSON
-    #
-    #
-    #
-    #
-    #
-    #
-    #
-    #
-    #
+        self.Generate_data = None
+        self.JSON = {"table": "MeterTemplates"}
 
-    # -------------------------------------------------------------------------------------->
-
-    def POST(self, name: int = 1, meter: int = 3, unique_meter: bool = True):
-        """
-        Метод для работы с с методотом POST
-        :param unique_types:
-        :param types: - Количество поля, Либо сюда спускаем ВСЕ НАСТРЙОКИ полностью
-        :param name: - Либо сюда спускаем ВСЕ НАСТРЙОКИ полностью
-        :return:
-        """
         from Construct.MeterTemplates.Template_Generate_Settings import GenerateSettings
         from copy import deepcopy
 
         # Генерируем поле сетттингс
 
-        Settings = deepcopy(GenerateSettings(name=name, meters=meter, unique_meter=unique_meter).settings)
+        self.Generate_data = deepcopy(GenerateSettings(name=name, meters=meter, unique_meter=unique_meter).settings)
 
-        # Формируем JSON
+    def POST(self, custom_settings=None):
+        """
+         Метод для перезаписи или дополнения записей
+
+         Берутся значения что были сгенерированы в конструкторе класса, и формируется JSON
+
+        :param custom_settings: - Если необходимо вставить свои записи - НИКАК не проверяются
+        :return: Возвращает готовый к употреблению JSON
+        """
+
+        # ТЕПЕРЬ СМОТРИМ - подставляем нужные значения
+
+        if custom_settings is None:
+            settings = self.Generate_data
+        else:
+            settings = custom_settings
+
         # ТЕПЕРЬ ЭТО ОБОРАЧИВАЕМ
         JSON = deepcopy(self.JSON)
 
         JSON["method"] = "post"
-        JSON["settings"] = list(Settings)
+        JSON["settings"] = list(settings)
         # И ОТДАЕМ В ЗАД
 
         return JSON
 
-    def PUT(self, name: int = 1, meter: int = 3, unique_meter: bool = True):
+    def PUT(self, custom_settings=None):
+
         """
+         Метод для Полной Перезаписи всех Значений
 
+         Берутся значения что были сгенерированы в конструкторе класса, и формируется JSON
 
-        :param name:
-        :param types:
-        :param unique_types:
-        :return:
+        :param custom_settings: - Если необходимо вставить свои записи - НИКАК не проверяются
+        :return: Возвращает готовый к употреблению JSON
         """
-        from Construct.MeterTemplates.Template_Generate_Settings import GenerateSettings
-        from copy import deepcopy
+        # ТЕПЕРЬ СМОТРИМ - подставляем нужные значения
 
-        # Генерируем поле сетттингс
+        if custom_settings is None:
+            settings = self.Generate_data
+        else:
+            settings = custom_settings
 
-        Settings = deepcopy(GenerateSettings(name=name, meters=meter, unique_meter=unique_meter).settings)
-
-        # Формируем JSON
         # ТЕПЕРЬ ЭТО ОБОРАЧИВАЕМ
         JSON = deepcopy(self.JSON)
 
         JSON["method"] = "put"
-        JSON["settings"] = list(Settings)
+        JSON["settings"] = list(settings)
         # И ОТДАЕМ В ЗАД
 
         return JSON
 
-    def GET(self, names):
+    def GET(self,
+            # ИМЕНА которые запрашиваем  - Либо сколько, либо какие - 0 запрашиваем все
+            names=0,
+            # Записываем или нет полученные значения
+            Record_Values: bool = True,
+            # Свои значения - Не проверяются
+            custom_settings=None
+            ):
+
         """
-        :param names:
-        :return:
+        Здесь генерируем запрос для получения нужных данных
+
+        :param names: - int - Если задан int , то получаем нужное количество id из БД.При 0 - помещаем туда все ,
+                если спускаем list / tuple / set - то что поделать вставляем их
+        :param custom_settings: - Если необходимо вставить свои записи - НИКАК не проверяются
+        :param Record_Values: - Значения что запрашиваем - сразу записываем
+        :return: Возвращает готовый к употреблению JSON
+
         """
-        # Формируем JSON
+        # ПОЛУЧАЕМ НАШ JSON
         JSON = deepcopy(self.JSON)
-        # Если У нас имя -  число
 
-        if names > 0:
-            from Construct.MeterDataTemplates.Template_Generate_Field_Name import GenerateFieldName
+        # ТЕПЕРЬ СМОТРИМ - подставляем нужные значения
+        settings = self.Generate_data
 
-            JSON["names"] = GenerateFieldName(name=names).GET_name_list()
 
-        elif (type(names) == list) or (type(names) == tuple) or (type(names) == set):
+        # ТЕПЕРЬ ЕСЛИ У НАС число либо список
+        if ((type(names) == int) and (names > 0)) or (type(names) == list) or (type(names) == tuple) or (
+                type(names) == set):
+            from Construct.MeterTemplates.Template_Generate_Settings import GenerateNamesMeterTemplates
+            # Генерируем IDS
+            names = GenerateNamesMeterTemplates(names=names, settings=settings).names
+            # Добавляем
+            JSON["names"] = list(names)
 
-            names = list(names)
-
-            for name in range(len(names)):
-                names[name] = str(names[name])
-
-            JSON["names"] = names
-
+        # ПОСЛЕ ЭТОГО СОЕДЕНЯЕМ
         JSON["method"] = "get"
+
+        if custom_settings is not None:
+            JSON["names"] = custom_settings
+
+        # если надо - то записываем данные
+        if Record_Values:
+            self.RecordData()
+
         # И ОТДАЕМ В ЗАД
+
         return JSON
+
+    def DELETE(
+               self,
+               # # ИМЕНА которые удалчяемп  - Либо сколько, либо какие - 0 запрашиваем все
+               names=0,
+               # Записываем или нет полученные значения
+               Record_Values: bool = True,
+               # Свои значения - Не проверяются
+               custom_settings=None
+               ):
+
+        """
+        Здесь генерируем запрос для удаления  нужных данных
+
+        :param names: - int - Если задан int , то получаем нужное количество id из БД.При 0 - помещаем туда все ,
+                если спускаем list / tuple / set - то что поделать вставляем их
+        :param custom_settings: - Если необходимо вставить свои записи - НИКАК не проверяются
+        :param Record_Values: - Значения что запрашиваем - сразу записываем
+        :return: Возвращает готовый к употреблению JSON
+
+        """
+        # ПОЛУЧАЕМ НАШ JSON
+        JSON = deepcopy(self.JSON)
+
+        # ТЕПЕРЬ СМОТРИМ - подставляем нужные значения
+        settings = self.Generate_data
+
+        # ТЕПЕРЬ ЕСЛИ У НАС число либо список
+        if ((type(names) == int) and (names > 0)) or (type(names) == list) or (type(names) == tuple) or (type(names) == set):
+            from Construct.MeterTemplates.Template_Generate_Settings import GenerateNamesMeterTemplates
+            # Генерируем IDS
+            names = GenerateNamesMeterTemplates(names=names, settings=settings).names
+            # Добавляем
+            JSON["names"] = list(names)
+
+        # ПОСЛЕ ЭТОГО СОЕДЕНЯЕМ
+        JSON["method"] = "delete"
+
+        if custom_settings is not None:
+            JSON["names"] = custom_settings
+
+        # если надо - то записываем данные
+        if Record_Values:
+            self.RecordData()
+
+        # И ОТДАЕМ В ЗАД
+
+        return JSON
+
+# -------------------------------------------------------------------------------------->
+# -------------------------------------------------------------------------------------->
+# -------------------------------------------------------------------------------------->
+# -------------------------------------------------------------------------------------->
+# -------------------------------------------------------------------------------------->

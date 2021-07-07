@@ -25,8 +25,19 @@
 
 
 
-data_base_before = [{'id': 16, 'mon': 7, 'day': 11, 'hour': 23, 'min': 27}, {'id': 20, 'mon': 4, 'day': 25, 'hour': 12, 'min': 3}]
-data_base_after = [{'id': 1, 'mon': 255, 'day': 255, 'hour': 255, 'min': 14}, {'id': 2, 'mon': 255, 'day': 255, 'hour': 255, 'min': 14}, {'id': 3, 'mon': 255, 'day': 255, 'hour': 255, 'min': 15}, {'id': 4, 'mon': 255, 'day': 255, 'hour': 255, 'min': 1}, {'id': 5, 'mon': 255, 'day': 255, 'hour': 255, 'min': 24}, {'id': 6, 'mon': 255, 'day': 255, 'hour': 255, 'min': 15}, {'id': 7, 'mon': 255, 'day': 255, 'hour': 255, 'min': 22}, {'id': 8, 'mon': 255, 'day': 255, 'hour': 255, 'min': 25}, {'id': 9, 'mon': 255, 'day': 255, 'hour': 255, 'min': 5}, {'id': 10, 'mon': 255, 'day': 255, 'hour': 255, 'min': 14}, {'id': 11, 'mon': 3, 'day': 7, 'hour': 24, 'min': 8}, {'id': 12, 'mon': 2, 'day': 21, 'hour': 18, 'min': 20}, {'id': 15, 'mon': 2, 'day': 11, 'hour': 5, 'min': 25}, {'id': 17, 'mon': 2, 'day': 30, 'hour': 19, 'min': 29}, {'id': 18, 'mon': 3, 'day': 27, 'hour': 28, 'min': 27}, {'id': 19, 'mon': 2, 'day': 5, 'hour': 4, 'min': 27}]
+# data_base_before = [{'id': 16, 'mon': 7, 'day': 11, 'hour': 23, 'min': 27}, {'id': 20, 'mon': 4, 'day': 25, 'hour': 12, 'min': 3}]
+# data_base_after = [{'id': 1, 'mon': 255, 'day': 255, 'hour': 255, 'min': 14}, {'id': 2, 'mon': 255, 'day': 255, 'hour': 255, 'min': 14}, {'id': 3, 'mon': 255, 'day': 255, 'hour': 255, 'min': 15}, {'id': 4, 'mon': 255, 'day': 255, 'hour': 255, 'min': 1}, {'id': 5, 'mon': 255, 'day': 255, 'hour': 255, 'min': 24}, {'id': 6, 'mon': 255, 'day': 255, 'hour': 255, 'min': 15}, {'id': 7, 'mon': 255, 'day': 255, 'hour': 255, 'min': 22}, {'id': 8, 'mon': 255, 'day': 255, 'hour': 255, 'min': 25}, {'id': 9, 'mon': 255, 'day': 255, 'hour': 255, 'min': 5}, {'id': 10, 'mon': 255, 'day': 255, 'hour': 255, 'min': 14}, {'id': 11, 'mon': 3, 'day': 7, 'hour': 24, 'min': 8}, {'id': 12, 'mon': 2, 'day': 21, 'hour': 18, 'min': 20}, {'id': 15, 'mon': 2, 'day': 11, 'hour': 5, 'min': 25}, {'id': 17, 'mon': 2, 'day': 30, 'hour': 19, 'min': 29}, {'id': 18, 'mon': 3, 'day': 27, 'hour': 28, 'min': 27}, {'id': 19, 'mon': 2, 'day': 5, 'hour': 4, 'min': 27}]
+#
+#
+# print(data_base_after - data_base_before)
 
 
-print(data_base_after - data_base_before)
+
+lol = None
+lol2 = None
+if lol is None :
+    lol = []
+if lol2 is None :
+    lol2 = []
+print(set(lol) - set(lol2))
+print(set(lol2) - set(lol))

@@ -46,7 +46,7 @@ class GenerateMeterId:
         max_id = execute_command(command=command)
 
         idx = None
-        print(max_id)
+
         for i in max_id:
             idx = i.get('MeterId')
         if idx is None:

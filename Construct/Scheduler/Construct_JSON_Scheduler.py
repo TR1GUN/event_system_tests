@@ -139,7 +139,7 @@ class SchedulerJSON:
         settings = self.Generate_data
 
         # ТЕПЕРЬ ЕСЛИ У НАС число либо список
-        if (type(ids) == int) or (ids > 0) or (type(ids) == list) or (type(ids) == tuple) or (type(ids) == set):
+        if ((type(ids) == int) and (ids > 0))  or (type(ids) == list) or (type(ids) == tuple) or (type(ids) == set):
             from Construct.Scheduler.Template_Generate_Settings import GenerateIdsScheduler
 
             # Генерируем IDS
@@ -188,7 +188,7 @@ class SchedulerJSON:
         settings = self.Generate_data
 
         # ТЕПЕРЬ ЕСЛИ У НАС число либо список
-        if (type(ids) == int) or (ids > 0) or (type(ids) == list) or (type(ids) == tuple) or (type(ids) == set):
+        if ((type(ids) == int) and (ids > 0)) or (type(ids) == list) or (type(ids) == tuple) or (type(ids) == set):
             from Construct.Scheduler.Template_Generate_Settings import GenerateIdsScheduler
 
             # Генерируем IDS
