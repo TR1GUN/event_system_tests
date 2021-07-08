@@ -4,19 +4,19 @@ from time import sleep
 
 from Template.Template_DataBase_by_JSON import DataBase
 
-from Template.CheckUp_MeterTemplates import CheckUpGET, CheckUpPUT, CheckUpPOST, CheckUpDELETE
+from Template.CheckUp_MeterDataTemplates import CheckUpGET, CheckUpPUT, CheckUpPOST, CheckUpDELETE
 
 
-class MeterTemplates(EventDataAPI):
+class MeterDataTemplates(EventDataAPI):
     """
 
     Этот класс Работает с таблицей MeterTemplates
 
     """
-    _template_post = {"method": "post", "table": "MeterTemplates", "settings": [{"name": "pupkin", "meters": [1]}]}
-    _template_put = {"method": "put", "table": "MeterTemplates", "settings": [{"name": "tester"}]}
-    _template_get = {"method": "get", "table": "MeterTemplates"}
-    _template_delete = {"method": "delete", "table": "MeterTemplates"}
+    _template_post = {"method": "post", "table": "MeterDataTemplates", "settings": [{"name": "lol", "types": ["test"]}]}
+    _template_put = {"method": "put", "table": "MeterDataTemplates", "settings": [{"name": "%2%2%2"}]}
+    _template_get = {"method": "get", "table": "MeterDataTemplates"}
+    _template_delete = {"method": "delete", "table": "MeterDataTemplates"}
 
     # //----------------------------------             POST запрос        ------------------------------------------
     def POST(self, JSON: dict = _template_post):
@@ -26,7 +26,7 @@ class MeterTemplates(EventDataAPI):
         :param Тестовый JSON что отправляем
         :return:
         """
-
+        print(JSON)
         # Отправляем данные
         Answer = self.SETUP(JSON)
         sleep(2)
@@ -60,7 +60,7 @@ class MeterTemplates(EventDataAPI):
         # Теперь селектим что записали
         data_base = DataBase().SELECT(JSON=JSON)
         print('data_base', data_base)
-        # print(JSON['settings'])
+        print(JSON['settings'])
         # ТЕПЕРЬ - Отправляем в сравниватель
         if Answer['res'] == 0:
             result = CheckUpPUT(JSON=JSON['settings'], data_base=data_base).error
@@ -125,19 +125,22 @@ class MeterTemplates(EventDataAPI):
 
         return result
 
+
 # //-----------------------------------------------------------------------------------------------------------------
 # //-----------------------------------------------------------------------------------------------------------------
 #                                           тестовые запуски
 # //-----------------------------------------------------------------------------------------------------------------
 # //-----------------------------------------------------------------------------------------------------------------
 # # ТУT все серьезно. генерируем данные по ID
-# from Construct.MeterTemplates.Construct_JSON_MeterTemplates import MeterTemplatesJSON
+# from Construct.MeterDataTemplates.Construct_JSON_MeterDataTemplates import MeterDataTemplatesJSON
 #
-#
-# JSON = MeterTemplatesJSON().GET()
+# JSON = MeterDataTemplatesJSON().DELETE()
 # print('lolol',JSON)
 #
 # # Генерируем JSON
-# MeterTemplates().GET(JSON)
+# MeterDataTemplates().DELETE(JSON)
 #
 #
+# a = MeterDataTemplates(name=[{'name': '3', 'types': ['3', '2', '1']}], types=3, unique_types=False).GET()
+#
+# print(a)

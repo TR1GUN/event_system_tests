@@ -1,8 +1,9 @@
 #
-# from Connect.Template_Setup import Setup
+from Connect.Template_Setup import Setup
 #
 #
-# api = 'event_db_api'
+api = 'event_db_api'
+
 # # JSON = """{"method":"put", "table":"Scheduler", "settings":[{"id":4,"mon":1, "day":2, "hour":3, "min":4}, {"id":2, "mon":255, "day":255, "hour":255, "min":10}]}"""
 #
 # JSON = """{"method":"get", "table":"Scheduler"}"""
@@ -18,9 +19,11 @@
 # # JSON = """{"method":"put", "table":"MeterDataTemplates","settings":[{"name":"vasya", "types":["one","two"]}, {"name":"pupkin"}]}"""
 #
 # JSON = """{"method":"post", "table":"Scheduler", "settings":[{"id":1, "mon":1, "day":2, "hour":4, "min":8}, {"id":1, "mon":4, "day":6, "hour":8, "min":10}]}"""
-# setup = Setup(JSON=JSON, API=api, type_connect='virtualbox')
-#
-# print(setup.answer_JSON)
+JSON = {"table":"MeterDataTemplates","method":"post","settings":[{"name":"pupkin", "types":["test"]}]}
+# JSON = """{"method":"post","table":"MeterDataTemplates","settings":[{"name":"pupkin", "types":["test"]}]}"""
+setup = Setup(JSON=JSON, API=api, type_connect='virtualbox')
+
+print(setup.answer_JSON)
 #
 
 
@@ -33,11 +36,11 @@
 
 
 
-lol = None
-lol2 = None
-if lol is None :
-    lol = []
-if lol2 is None :
-    lol2 = []
-print(set(lol) - set(lol2))
-print(set(lol2) - set(lol))
+# lol = None
+# lol2 = None
+# if lol is None :
+#     lol = []
+# if lol2 is None :
+#     lol2 = []
+# print(set(lol) - set(lol2))
+# print(set(lol2) - set(lol))

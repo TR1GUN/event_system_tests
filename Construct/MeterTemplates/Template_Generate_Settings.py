@@ -177,7 +177,6 @@ class GenerateNamesMeterTemplates:
 
         # ЕСЛИ У НАС СПИСОК - Проверяем - все ли айдишники есть
         elif (type(names) == list) or (type(names) == tuple) or (type(names) == set):
-
             # Теперь перебираем все names
             names_list = []
             for name in names:

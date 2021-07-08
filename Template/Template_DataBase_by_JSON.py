@@ -87,13 +87,42 @@ class DataBase:
 
         return result
 
-    SELECT_dict = {
-        'Scheduler': _select_to_Scheduler,
-        'MeterTemplates' : _select_to_MeterTemplates
-    }
+    def _select_to_MeterDataTemplates(self, JSON):
+        """
+        Выполянмем инстерт по JSON для таблицы MeterTemplates
+        :param JSON:
+        :return:
+        """
+        from Template.DataBase.Template_Select_MeterDataTemplates import SelectMeterDataTemplates
 
-    INSERT_dict = {
-        'Scheduler': _insert_to_Scheduler,
-        'MeterTemplates' : _insert_to_MeterTemplates
+        result = SelectMeterDataTemplates(JSON=JSON).result
 
-    }
+        return result
+
+    def _insert_to_MeterDataTemplates(self, JSON):
+        """
+        Выполянмем инстерт по JSON для таблицы Scheduler
+        :param JSON:
+        :return:
+        """
+
+        from Template.DataBase.Template_Insert_Data_MeterDataTemplates import InsertIntoMeterDataTemplates
+
+        result = InsertIntoMeterDataTemplates(JSON=JSON).result
+
+        return result
+
+    SELECT_dict = \
+        {
+            'Scheduler': _select_to_Scheduler,
+            'MeterTemplates': _select_to_MeterTemplates,
+            'MeterDataTemplates': _select_to_MeterDataTemplates
+        }
+
+    INSERT_dict = \
+        {
+            'Scheduler': _insert_to_Scheduler,
+            'MeterTemplates': _insert_to_MeterTemplates,
+            'MeterDataTemplates': _insert_to_MeterDataTemplates
+
+        }
