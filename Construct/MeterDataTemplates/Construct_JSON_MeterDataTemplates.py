@@ -113,6 +113,15 @@ class MeterDataTemplatesJSON(TemplateJSON):
 
     def __init__(self, name: int = 1, types: int = 3, unique_types: bool = True):
 
+        """
+
+        Генератор JSON таблицы MeterDataTemplates
+
+        :param name: - Либо количество автосгенерирвоанных имен, либо список имен для генерации , либо Полноценный JSON
+        :param types: - либо количество ArchTypes для автогенерации либо список ArchTypes
+        :param unique_types: Уникальны ли ArchTypes для каждого name
+        """
+
         self.Generate_data = None
         self.JSON = {"table": "MeterDataTemplates"}
 

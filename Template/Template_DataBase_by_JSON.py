@@ -99,6 +99,18 @@ class DataBase:
 
         return result
 
+    def _select_to_Poller(self, JSON):
+        """
+        Выполянмем инстерт по JSON для таблицы MeterTemplates
+        :param JSON:
+        :return:
+        """
+        from Template.DataBase.Template_Select_Poller import SelectPoller
+
+        result = SelectPoller(JSON=JSON).result
+
+        return result
+
     def _insert_to_MeterDataTemplates(self, JSON):
         """
         Выполянмем инстерт по JSON для таблицы Scheduler
@@ -112,17 +124,31 @@ class DataBase:
 
         return result
 
+    def _insert_to_Poller(self, JSON):
+        """
+        Выполянмем инстерт по JSON для таблицы Scheduler
+        :param JSON:
+        :return:
+        """
+
+        from Template.DataBase.Template_Insert_Data_Poller import InsertIntoPoller
+
+        result = InsertIntoPoller(JSON=JSON).result
+
+        return result
     SELECT_dict = \
         {
             'Scheduler': _select_to_Scheduler,
             'MeterTemplates': _select_to_MeterTemplates,
-            'MeterDataTemplates': _select_to_MeterDataTemplates
+            'MeterDataTemplates': _select_to_MeterDataTemplates,
+            'Poller': _select_to_Poller,
         }
 
     INSERT_dict = \
         {
             'Scheduler': _insert_to_Scheduler,
             'MeterTemplates': _insert_to_MeterTemplates,
-            'MeterDataTemplates': _insert_to_MeterDataTemplates
+            'MeterDataTemplates': _insert_to_MeterDataTemplates,
+            'Poller': _insert_to_Poller,
 
         }
