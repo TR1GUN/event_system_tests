@@ -18,7 +18,7 @@ class InsertIntoPoller(TemplateSQL):
         'ArchTypesId': 'MeterDataTemplateId',
         'MetersNameId': 'MeterTemplateId',
             }
-    value_None = '\'Null\''
+    value_None = ' null '
     table_ArchTypesName = ' MeterDataTemplates '
     field_ArchTypesName = \
         {

@@ -138,6 +138,6 @@ class MeterTemplates(EventDataAPI):
 # print('lolol',JSON)
 #
 # # Генерируем JSON
-# MeterTemplates().GET(JSON)
+MeterTemplates().DELETE()
 #
 #

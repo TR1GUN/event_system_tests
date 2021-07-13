@@ -78,11 +78,11 @@ class Poller(EventDataAPI):
         :param JSON: Тестовый JSON что отправляем
         :return:
         """
-        print(JSON)
+
         # итак - что делаем - мы селектим все что у нас есть
         # Теперь селектим что записали
         data_base = DataBase().SELECT(JSON=JSON)
-        print(data_base)
+        print('data_base', data_base)
         # Отправляем данные
         Answer = self.SETUP(JSON)
         # ТЕПЕРЬ - Отправляем в сравниватель
@@ -132,11 +132,11 @@ class Poller(EventDataAPI):
 # //-----------------------------------------------------------------------------------------------------------------
 # ТУT все серьезно. генерируем данные по ID
 from Construct.Poller.Construct_JSON_Poller import PollerJSON
-
-
+#
+#
 JSON = PollerJSON(ids=3,metersName=2,archTypesName=2, generate_of_max=True,ArchTypes=2, CountMeter=6).GET(ids=0)
-print('lolol',JSON)
 
-# Генерируем JSON
+
+# # Генерируем JSON
 Poller().GET(JSON)
 

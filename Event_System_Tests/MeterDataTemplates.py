@@ -138,7 +138,7 @@ class MeterDataTemplates(EventDataAPI):
 # print('lolol',JSON)
 #
 # # Генерируем JSON
-# MeterDataTemplates().DELETE(JSON)
+MeterDataTemplates().DELETE()
 #
 #
 # a = MeterDataTemplates(name=[{'name': '3', 'types': ['3', '2', '1']}], types=3, unique_types=False).GET()

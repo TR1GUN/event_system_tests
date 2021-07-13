@@ -9,26 +9,6 @@ class SelectPoller(TemplateSQL):
 
     """
 
-    # result = None
-    # # Таблица для прописывания имени
-    # table_MeterDataTemplates = ' MeterDataTemplates '
-    # # Таблица для прописывания счетчиков
-    # table_MeterDataTemplateArray = ' MeterDataTemplateArray '
-    #
-    # # Поля Таблицы для прописывания имени
-    # field_table_MeterDataTemplates = \
-    #     {
-    #         'name': 'TemplateName',
-    #         'id': 'Id',
-    #     }
-    #
-    # # Поля Таблицы для прописывания счетчиков
-    # field_table_MeterDataTemplateArray = \
-    #     {
-    #         'id': 'Id',
-    #         'name': 'MeterDataTemplateId',
-    #         'types': 'ArchTypeName',
-    #     }
     result = None
     table = ' Poller '
 
@@ -77,7 +57,7 @@ class SelectPoller(TemplateSQL):
                   + " WHERE " \
                   + select_field_where + ' IN ' + select_value
 
-        # print(command)
+
         result = self.execute_command(command)
         ArchTypesName = None
         # Теперь обрабатываем резульатат
@@ -148,11 +128,8 @@ class SelectPoller(TemplateSQL):
                   ' WHERE ' + fields_id + ' IN ' + ' ( ' + command_id + ' ) '
 
         # Получаем
-        print(command)
+
         TablePoller = self.execute_command(command=command)
-
-        print(TablePoller)
-
         result = []
         for element in TablePoller:
             element_poller = {}
@@ -161,7 +138,7 @@ class SelectPoller(TemplateSQL):
             # ТЕПЕРЬ ИЩЕМ archTypesName
             element_poller['archTypesName'] = self._Get_Name_ArchTypesId(archTypesID=element.get('ArchTypesId'))
             # ТЕПЕРЬ ИЩЕМ metersName
-            element_poller['archTypesName'] = self._Get_Name_MetersNameId(MetersNameId=element.get('MetersNameId'))
+            element_poller['metersName'] = self._Get_Name_MetersNameId(MetersNameId=element.get('MetersNameId'))
 
             # Добавляем
             result.append(element_poller)
@@ -179,7 +156,6 @@ class SelectPoller(TemplateSQL):
 
         ids = JSON.get("id")
 
-        print('---->',ids)
         # Собираем поля для селекта
         select_fields = ''
 
@@ -204,11 +180,7 @@ class SelectPoller(TemplateSQL):
             command = ' SELECT ' + select_fields + ' FROM ' + str(self.table)
 
         # Получаем
-        print(command)
         TablePoller = self.execute_command(command=command)
-
-        print(TablePoller)
-
         result = []
         for element in TablePoller:
             element_poller = {}
@@ -217,12 +189,10 @@ class SelectPoller(TemplateSQL):
             # ТЕПЕРЬ ИЩЕМ archTypesName
             element_poller['archTypesName'] = self._Get_Name_ArchTypesId(archTypesID=element.get('ArchTypesId'))
             # ТЕПЕРЬ ИЩЕМ metersName
-            element_poller['archTypesName'] = self._Get_Name_MetersNameId(MetersNameId=element.get('MetersNameId'))
+            element_poller['metersName'] = self._Get_Name_MetersNameId(MetersNameId=element.get('MetersNameId'))
 
             # Добавляем
             result.append(element_poller)
-
-        print('aboba',result)
 
         return result
 
@@ -239,7 +209,6 @@ class SelectPoller(TemplateSQL):
 
         ids = JSON.get("id")
 
-        print('---->', ids)
         # Собираем поля для селекта
         select_fields = ''
 
@@ -263,10 +232,7 @@ class SelectPoller(TemplateSQL):
             command = ' SELECT ' + select_fields + ' FROM ' + str(self.table)
 
         # Получаем
-        print(command)
         TablePoller = self.execute_command(command=command)
-
-        print(TablePoller)
 
         result = []
         for element in TablePoller:
@@ -276,13 +242,10 @@ class SelectPoller(TemplateSQL):
             # ТЕПЕРЬ ИЩЕМ archTypesName
             element_poller['archTypesName'] = self._Get_Name_ArchTypesId(archTypesID=element.get('ArchTypesId'))
             # ТЕПЕРЬ ИЩЕМ metersName
-            element_poller['archTypesName'] = self._Get_Name_MetersNameId(MetersNameId=element.get('MetersNameId'))
+            element_poller['metersName'] = self._Get_Name_MetersNameId(MetersNameId=element.get('MetersNameId'))
 
             # Добавляем
             result.append(element_poller)
-
-        print('aboba', result)
-
         return result
 
     def _select_PUT(self, JSON):
@@ -311,11 +274,7 @@ class SelectPoller(TemplateSQL):
         command = ' SELECT ' + select_fields + ' FROM ' + str(self.table)
 
         # Получаем
-        print(command)
         TablePoller = self.execute_command(command=command)
-
-        print(TablePoller)
-
         result = []
         for element in TablePoller:
             element_poller = {}
@@ -324,7 +283,7 @@ class SelectPoller(TemplateSQL):
             # ТЕПЕРЬ ИЩЕМ archTypesName
             element_poller['archTypesName'] = self._Get_Name_ArchTypesId(archTypesID=element.get('ArchTypesId'))
             # ТЕПЕРЬ ИЩЕМ metersName
-            element_poller['archTypesName'] = self._Get_Name_MetersNameId(MetersNameId=element.get('MetersNameId'))
+            element_poller['metersName'] = self._Get_Name_MetersNameId(MetersNameId=element.get('MetersNameId'))
 
             # Добавляем
             result.append(element_poller)
