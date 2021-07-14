@@ -1,35 +1,44 @@
+# Здесь селектим все то что ДОЛЖНЫ
+
 # итак - тут расположим файл для селекта наших записей MeterTemplates
 from Template.Template_SQL_Database import TemplateSQL
 
 
-class SelectPoller(TemplateSQL):
+class SelectManager(TemplateSQL):
     """
 
-    Класс для работы с таблицей Poller
+    Класс для работы с таблицей Manager
 
     """
 
     result = None
-    table = ' Poller '
+    table = ' Manager '
 
+    # ВСЕ ПОЛЯ ОСНОВНОЙ ТАБЛИЦЫ
     field = {
         'id': 'Id',
-        # 'ArchTypesId': 'MeterDataTemplateId',
-        # 'MetersNameId': 'MeterTemplateId',
-        'ArchTypesId': 'MeterDataTemplateId',
-        'MetersNameId': 'MeterTemplateId',
+        'eventType': 'EventTypeId',
+        'eventId': 'EventId',
+        'actionType': 'ActionTypeId',
+        'actionId': 'ActionId',
     }
-    value_None = '\'Null\''
-    table_ArchTypesName = ' MeterDataTemplates '
-    field_ArchTypesName = \
+
+    # НУЛЕВОЕ ЗНАЧЕНИЕ
+    value_None = ' null '
+
+    # ----->
+    table_EventTypes = ' EventTypes '
+    field_table_EventTypes = \
         {
-            'name': 'TemplateName',
+            'eventType': 'EventName',
             'Id': "Id"
         }
-    table_MetersName = ' MeterTemplates '
-    field_table_MetersName = \
+
+    # ----->
+    table_ActionTypes = ' ActionTypes '
+    field_table_ActionTypes = \
         {
-            'name': 'TemplateName',
+            'actionType': 'ActionName',
             'Id': "Id"
         }
 

@@ -1,36 +1,48 @@
+# Итак - здесь разместим конструктор JSON для таблицы Manager
+
 from copy import deepcopy
 from Construct.Template_Construct_JSON import TemplateJSON
 
 
-class MeterDataTemplatesJSON(TemplateJSON):
+class ManagerJSON(TemplateJSON):
     """
     Класс который конструирует JSON для таблицы MeterDataTemplates
 
     """
     Generate_data = None
 
-    JSON = {"table": "MeterDataTemplates"}
+    JSON = {"table": "Manager"}
 
-    def __init__(self, name: int = 1, types: int = 3, unique_types: bool = True):
+    def __init__(self,
+                 # Количенство айдишников что мы генерим , либо их с список , либо ПОЛНОЦЕННЫЙ JSON
+                 ids: int = 1,
+                 # Либо сам тип - str/int либо список из всего этого добра
+                 EventType: list = ["Scheduler"],
+                 # Либо сам тип - str/int либо список из всего этого добра
+                 ActionType: list = ["Poller"]
+                 ):
 
         """
+        Генератор JSON таблицы Manager
 
-        Генератор JSON таблицы MeterDataTemplates
-
-        :param name: - Либо количество автосгенерирвоанных имен, либо список имен для генерации , либо Полноценный JSON
-        :param types: - либо количество ArchTypes для автогенерации либо список ArchTypes
-        :param unique_types: Уникальны ли ArchTypes для каждого name
+        :param ids: Количество айдишников что мы генерим , либо их с список , либо ПОЛНОЦЕННЫЙ JSON
+        :param EventType: # Либо сам тип - str/int либо список из всего этого добра
+        :param ActionType: # Либо сам тип - str/int либо список из всего этого добра
         """
 
         self.Generate_data = None
-        self.JSON = {"table": "MeterDataTemplates"}
+        self.JSON = {"table": "Manager"}
 
-        from Construct.MeterDataTemplates.Template_Generate_Settings import GenerateSettings
+        from Construct.Manager.Template_Generate_Settings import GenerateSettingsManager
         from copy import deepcopy
 
         # Генерируем поле сетттингс
 
-        self.Generate_data = deepcopy(GenerateSettings(name=name, types=types, unique_types=unique_types).settings)
+        self.Generate_data = deepcopy(GenerateSettingsManager(
+                                                                ids=ids,
+                                                                EventType=EventType,
+                                                                ActionType=ActionType
+                                                              ).settings)
 
     def POST(self, custom_settings=None):
         """
@@ -86,7 +98,7 @@ class MeterDataTemplatesJSON(TemplateJSON):
 
     def GET(self,
             # ИМЕНА которые запрашиваем  - Либо сколько, либо какие - 0 запрашиваем все
-            names=0,
+            ids=0,
             # Записываем или нет полученные значения
             Record_Values: bool = True,
             # Свои значения - Не проверяются
@@ -96,7 +108,7 @@ class MeterDataTemplatesJSON(TemplateJSON):
         """
         Здесь генерируем запрос для получения нужных данных
 
-        :param names: - int - Если задан int , то получаем нужное количество id из БД.При 0 - помещаем туда все ,
+        :param ids: - int - Если задан int , то получаем нужное количество id из БД.При 0 - помещаем туда все ,
                 если спускаем list / tuple / set - то что поделать вставляем их
         :param custom_settings: - Если необходимо вставить свои записи - НИКАК не проверяются
         :param Record_Values: - Значения что запрашиваем - сразу записываем
@@ -109,15 +121,14 @@ class MeterDataTemplatesJSON(TemplateJSON):
         # ТЕПЕРЬ СМОТРИМ - подставляем нужные значения
         settings = self.Generate_data
 
-
         # ТЕПЕРЬ ЕСЛИ У НАС число либо список
-        if ((type(names) == int) and (names > 0)) or (type(names) == list) or (type(names) == tuple) or (
-                type(names) == set):
-            from Construct.MeterDataTemplates.Template_Generate_Settings import GenerateNamesMeterDataTemplates
+        if ((type(ids) == int) and (ids > 0)) or (type(ids) == list) or (type(ids) == tuple) or (
+                type(ids) == set):
+            from Construct.Manager.Template_Generate_Settings import GenerateIdManager
             # Генерируем IDS
-            names = GenerateNamesMeterDataTemplates(names=names, settings=settings).names
+            ids = GenerateIdManager(ids=ids, settings=settings).ids
             # Добавляем
-            JSON["names"] = list(names)
+            JSON["ids"] = list(ids)
 
         # ПОСЛЕ ЭТОГО СОЕДЕНЯЕМ
         JSON["method"] = "get"
@@ -127,6 +138,7 @@ class MeterDataTemplatesJSON(TemplateJSON):
 
         # если надо - то записываем данные
         if Record_Values:
+
             self.RecordData()
 
         # И ОТДАЕМ В ЗАД
@@ -134,19 +146,19 @@ class MeterDataTemplatesJSON(TemplateJSON):
         return JSON
 
     def DELETE(
-               self,
-               # # ИМЕНА которые удалчяемп  - Либо сколько, либо какие - 0 запрашиваем все
-               names=0,
-               # Записываем или нет полученные значения
-               Record_Values: bool = True,
-               # Свои значения - Не проверяются
-               custom_settings=None
-               ):
+            self,
+            # # ИМЕНА которые удалчяемп  - Либо сколько, либо какие - 0 запрашиваем все
+            ids=0,
+            # Записываем или нет полученные значения
+            Record_Values: bool = True,
+            # Свои значения - Не проверяются
+            custom_settings=None
+    ):
 
         """
         Здесь генерируем запрос для удаления  нужных данных
 
-        :param names: - int - Если задан int , то получаем нужное количество id из БД.При 0 - помещаем туда все ,
+        :param ids: - int - Если задан int , то получаем нужное количество id из БД.При 0 - помещаем туда все ,
                 если спускаем list / tuple / set - то что поделать вставляем их
         :param custom_settings: - Если необходимо вставить свои записи - НИКАК не проверяются
         :param Record_Values: - Значения что запрашиваем - сразу записываем
@@ -160,18 +172,19 @@ class MeterDataTemplatesJSON(TemplateJSON):
         settings = self.Generate_data
 
         # ТЕПЕРЬ ЕСЛИ У НАС число либо список
-        if ((type(names) == int) and (names > 0)) or (type(names) == list) or (type(names) == tuple) or (type(names) == set):
-            from Construct.MeterDataTemplates.Template_Generate_Settings import GenerateNamesMeterDataTemplates
+        if ((type(ids) == int) and (ids > 0)) or (type(ids) == list) or (type(ids) == tuple) or (
+                type(ids) == set):
+            from Construct.Manager.Template_Generate_Settings import GenerateIdManager
             # Генерируем IDS
-            names = GenerateNamesMeterDataTemplates(names=names, settings=settings).names
+            ids = GenerateIdManager(ids=ids, settings=settings).ids
             # Добавляем
-            JSON["names"] = list(names)
+            JSON["ids"] = list(ids)
 
         # ПОСЛЕ ЭТОГО СОЕДЕНЯЕМ
         JSON["method"] = "delete"
 
         if custom_settings is not None:
-            JSON["names"] = custom_settings
+            JSON["ids"] = custom_settings
 
         # если надо - то записываем данные
         if Record_Values:
@@ -186,3 +199,6 @@ class MeterDataTemplatesJSON(TemplateJSON):
 # -------------------------------------------------------------------------------------->
 # -------------------------------------------------------------------------------------->
 # -------------------------------------------------------------------------------------->
+a = ManagerJSON().GET(5)
+
+print(a)
