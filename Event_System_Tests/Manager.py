@@ -132,8 +132,8 @@ class Manager(EventDataAPI):
 # //-----------------------------------------------------------------------------------------------------------------
 # //-----------------------------------------------------------------------------------------------------------------
 # ТУT все серьезно. генерируем данные по ID
-from Construct.Manager.Construct_JSON_Manager import ManagerJSON
-
-JSON = ManagerJSON(ids=3, EventType=3, ActionType=3).DELETE(ids=2)
-
-Manager().DELETE(JSON=JSON)
+# from Construct.Manager.Construct_JSON_Manager import ManagerJSON
+#
+# JSON = ManagerJSON(ids=3, EventType=3, ActionType=3).DELETE(ids=2)
+#
+# Manager().DELETE(JSON=JSON)

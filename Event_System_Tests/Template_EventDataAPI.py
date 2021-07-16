@@ -7,6 +7,9 @@ class EventDataAPI:
     API = 'event_db_api'
     Type_Connect = 'virtualbox'
 
+    def __init__(self, Type_Connect='virtualbox'):
+        self.Type_Connect = Type_Connect
+
     def SETUP(self, JSON):
         """
         Основной КЛАСС запуска - Это очень важная хрень как ни крууути

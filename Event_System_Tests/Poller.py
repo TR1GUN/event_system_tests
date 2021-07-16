@@ -130,13 +130,13 @@ class Poller(EventDataAPI):
 #                                           тестовые запуски
 # //-----------------------------------------------------------------------------------------------------------------
 # //-----------------------------------------------------------------------------------------------------------------
-# ТУT все серьезно. генерируем данные по ID
-from Construct.Poller.Construct_JSON_Poller import PollerJSON
+# # ТУT все серьезно. генерируем данные по ID
+# from Construct.Poller.Construct_JSON_Poller import PollerJSON
+# #
+# #
+# JSON = PollerJSON(ids=3,metersName=2,archTypesName=2, generate_of_max=True,ArchTypes=2, CountMeter=6).GET(ids=0)
 #
 #
-JSON = PollerJSON(ids=3,metersName=2,archTypesName=2, generate_of_max=True,ArchTypes=2, CountMeter=6).GET(ids=0)
-
-
-# # Генерируем JSON
-Poller().GET(JSON)
+# # # Генерируем JSON
+# Poller().GET(JSON)
 

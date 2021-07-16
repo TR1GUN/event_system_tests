@@ -128,17 +128,17 @@ class Scheduler(EventDataAPI):
 # ТУT все серьезно. генерируем данные по ID
 
 # Генерируем JSON
-from Construct.Scheduler.Construct_JSON_Scheduler import SchedulerJSON
-
+# from Construct.Scheduler.Construct_JSON_Scheduler import SchedulerJSON
 #
-JSON = SchedulerJSON(generate=5, hour=255).DELETE(ids=0)
+# #
+# JSON = SchedulerJSON(generate=5, hour=255).DELETE(ids=0)
+# #
 #
-
-# print(JSON)
-
-# JSON = '''{'table': 'Scheduler', 'method': 'put', 'settings': []}'''
-# Scheduler().PUT(JSON=JSON)
-
-# Scheduler().POST()
-
-Scheduler().DELETE(JSON)
+# # print(JSON)
+#
+# # JSON = '''{'table': 'Scheduler', 'method': 'put', 'settings': []}'''
+# # Scheduler().PUT(JSON=JSON)
+#
+# # Scheduler().POST()
+#
+# Scheduler().DELETE(JSON)
