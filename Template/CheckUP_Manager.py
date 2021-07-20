@@ -62,7 +62,7 @@ class CheckUp:
         # Сначала проверяем значения JSON
         for keys in JSON_dict:
             # отбрасываем ключ pattern
-            if keys not in ['pattern']:
+            if keys not in []:
                 # Теперь сравниваем значения
                 JSON_value = JSON_dict.get(keys)
                 DataBase_value = DataBase_dict.get(keys)
@@ -91,46 +91,11 @@ class CheckUp:
                         # Добавляем это в ошибку , и добавляем наш ключ
                         error.append(error_string)
                         error_keys.append(keys)
-            # Здесь обрабатываем ключ pattern
-            elif keys in ['pattern']:
-
-                # Получаем значения JSON
-                JSON_value = JSON_dict.get(keys)
-                # собираем значения для pattern
-                mon = DataBase_dict.get('mon')
-                if mon in [255, None]:
-                    mon = '*'
-                day = DataBase_dict.get('day')
-                if day in [255, None]:
-                    day = '*'
-                hour = DataBase_dict.get('hour')
-                if hour in [255, None]:
-                    hour = '*'
-                min = DataBase_dict.get('min')
-                # if min in [255 , None] :
-                #     min = '*'
-
-                # Теперь форимируем наш pattern
-                if (hour == '*') and (day == '*') and (mon == '*'):
-                    DataBase_value = '* / ' + str(min) + ' * * * *'
-                else:
-                    DataBase_value = str(min) + " " + str(hour) + " " + str(day) + " " + str(mon) + " *"
-
-                # ТЕПЕРЬ СРАВНИВАЕМ
-                if JSON_value != DataBase_value:
-                    # Генерируем строку ошибки
-                    error_string = self._add_error_strings_keys_value(keys=keys,
-                                                                      JSON_value=JSON_value,
-                                                                      DataBase_value=DataBase_value)
-
-                    # Добавляем это в ошибку , и добавляем наш ключ
-                    error.append(error_string)
-                    error_keys.append(keys)
 
         # ------------ ТЕПЕРЬ ПЕРЕБИРАЕМ БД ------------->
         for keys in DataBase_dict:
             # отбрасываем ключ pattern
-            if keys not in ['pattern']:
+            if keys not in []:
                 if keys not in error_keys:
                     # Теперь сравниваем значения
                     # answer_value = answer_element.get(keys)
@@ -138,9 +103,6 @@ class CheckUp:
                     # Теперь сравниваем значения
                     JSON_value = JSON_dict.get(keys)
                     DataBase_value = DataBase_dict.get(keys)
-                    # Теперь ставим условность - 255 и None
-                    if DataBase_value in [255]:
-                        DataBase_value = None
                     # Теперь проверяем их равнество
 
                     if (type(DataBase_value) == float) or (type(JSON_value) == float):

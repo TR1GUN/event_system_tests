@@ -153,12 +153,12 @@ class GenerateNamesMeterDataTemplates:
         # сначала получаем все names что есть
         all_names = set()
         for i in settings:
-            all_names.add(i.get('names'))
+            all_names.add(i.get('name'))
 
         all_names = list(all_names)
 
         # ЕСЛИ у нас int
-        if (type(names) == int) and (names > 0):
+        if (type(names) is int) and (names > 0):
 
             # чтоб не выстрелить себе в ногу
             if names > len(all_names):
@@ -167,10 +167,12 @@ class GenerateNamesMeterDataTemplates:
             # ТЕПЕРЬ - ставим нужные names из сгенерированных
             from random import randint
             idx = set()
+            max_len = len(all_names) - 1
             while len(idx) < names:
-                idx.add(all_names[randint(0, (len(all_names) - 1))])
-            idx = list(idx)
+                idx.add(all_names[randint(0, max_len)])
+            names = list(idx)
 
+            print(names)
         # ЕСЛИ У НАС СПИСОК - Проверяем - все ли айдишники есть
         elif (type(names) == list) or (type(names) == tuple) or (type(names) == set):
             # Теперь перебираем все names
@@ -181,5 +183,4 @@ class GenerateNamesMeterDataTemplates:
 
         else:
             names = []
-
         self.names = names

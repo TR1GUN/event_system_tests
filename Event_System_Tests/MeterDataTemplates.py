@@ -144,3 +144,31 @@ class MeterDataTemplates(EventDataAPI):
 # a = MeterDataTemplates(name=[{'name': '3', 'types': ['3', '2', '1']}], types=3, unique_types=False).GET()
 #
 # print(a)
+
+
+JSON_param = {
+            # Либо количество автосгенерирвоанных имен, либо список имен для генерации , либо Полноценный JSON
+            'name': 1,
+            # либо количество ArchTypes для автогенерации либо список ArchTypes
+            'types': 3,
+            # Уникальны ли ArchTypes для каждого name
+            'unique_types': True,
+            # ИМЕНА которые запрашиваем  - Либо сколько, либо какие - 0 запрашиваем все
+            'names': 1,
+            # Записываем или нет полученные значения
+            'Record_Values': True,
+            # Свои значения - Не проверяются
+            'custom_settings': None,
+        }
+
+# from Construct.MeterDataTemplates.Construct_JSON_MeterDataTemplates import MeterDataTemplatesJSON
+# JSON = MeterDataTemplatesJSON(name=JSON_param.get('name'),
+#                                   types=JSON_param.get('types'),
+#                                   unique_types=JSON_param.get('unique_types')).GET(
+#         custom_settings=JSON_param.get('custom_settings')
+#     )
+#
+#
+#
+# print(JSON)
+# result = MeterDataTemplates(Type_Connect='virtualbox').GET(JSON=JSON)

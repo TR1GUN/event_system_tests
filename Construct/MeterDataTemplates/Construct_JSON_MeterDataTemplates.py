@@ -116,6 +116,8 @@ class MeterDataTemplatesJSON(TemplateJSON):
             from Construct.MeterDataTemplates.Template_Generate_Settings import GenerateNamesMeterDataTemplates
             # Генерируем IDS
             names = GenerateNamesMeterDataTemplates(names=names, settings=settings).names
+
+            print(names)
             # Добавляем
             JSON["names"] = list(names)
 

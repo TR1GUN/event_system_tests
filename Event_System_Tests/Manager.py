@@ -108,7 +108,7 @@ class Manager(EventDataAPI):
         # итак - что делаем - мы селектим все что у нас есть
         # Теперь селектим что записали
         database_before = DataBase().SELECT(JSON=self._template_delete)
-        print(database_before)
+        print('database_before', database_before)
         # Отправляем данные
 
         Answer = self.SETUP(JSON)
@@ -132,8 +132,9 @@ class Manager(EventDataAPI):
 # //-----------------------------------------------------------------------------------------------------------------
 # //-----------------------------------------------------------------------------------------------------------------
 # ТУT все серьезно. генерируем данные по ID
-# from Construct.Manager.Construct_JSON_Manager import ManagerJSON
+from Construct.Manager.Construct_JSON_Manager import ManagerJSON
 #
-# JSON = ManagerJSON(ids=3, EventType=3, ActionType=3).DELETE(ids=2)
-#
-# Manager().DELETE(JSON=JSON)
+for i in range(2):
+    JSON = ManagerJSON(ids=257, EventType=["Scheduler"], ActionType=['Poller']).DELETE(ids=250)
+
+    Manager().DELETE(JSON=JSON)

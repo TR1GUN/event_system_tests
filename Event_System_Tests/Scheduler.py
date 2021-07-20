@@ -131,14 +131,16 @@ class Scheduler(EventDataAPI):
 # from Construct.Scheduler.Construct_JSON_Scheduler import SchedulerJSON
 #
 # #
-# JSON = SchedulerJSON(generate=5, hour=255).DELETE(ids=0)
+# JSON_GET = SchedulerJSON(generate=[{  'hour': 0, 'min': 0, 'id': 380}], hour=255).GET(ids=0)
+# # #
 # #
+# # # print(JSON)
+# #
+# JSON =  {'table': 'Scheduler', 'method': 'post', 'settings': [{  'hour': 0, 'min': 0, 'id': 383}]}
+# # # # # Scheduler().PUT(JSON=JSON)
+# # # #
+# Scheduler().POST(JSON=JSON)
 #
-# # print(JSON)
-#
-# # JSON = '''{'table': 'Scheduler', 'method': 'put', 'settings': []}'''
-# # Scheduler().PUT(JSON=JSON)
-#
-# # Scheduler().POST()
+# Scheduler().GET(JSON= JSON_GET)
 #
 # Scheduler().DELETE(JSON)

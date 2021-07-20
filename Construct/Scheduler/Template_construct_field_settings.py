@@ -35,13 +35,13 @@ class ConstructFieldSettings:
 
         # Если генерируем час
         if hour:
-            settings['hour'] = randint(1, 31)
+            settings['hour'] = randint(1, 23)
         elif type(hour) == int:
             settings['hour'] = hour
 
         # Генерируем минуты
         if min is None:
-            settings['min'] = randint(1, 31)
+            settings['min'] = randint(1, 59)
         elif type(hour) == int:
             settings['min'] = min
         else:

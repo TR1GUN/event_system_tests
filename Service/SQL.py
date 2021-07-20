@@ -22,6 +22,18 @@ def dict_factory(cursor, row):
         dict[col[0]] = row[idx]
     return dict
 
+def foreign_keys(database):
+    """
+    Метод для активации каскадного удаления  -Это важно
+    :param database:
+    :return:
+    """
+    c = database.cursor()
+    c.execute('PRAGMA foreign_keys = ON;')
+    database.commit()
+    table = c.fetchall()
+
+    return database
 
 def execute_command_to_shared_data_base(command: str):
     """
@@ -34,6 +46,8 @@ def execute_command_to_shared_data_base(command: str):
     import sqlite3
     from Service.ConfigParser import dbpath
     conn = sqlite3.connect(dbpath)
+
+    conn = foreign_keys(conn)
     # print(dbpath)
     # print(command)
 

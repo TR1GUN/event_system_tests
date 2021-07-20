@@ -191,7 +191,8 @@ class SelectManager(TemplateSQL):
         command = ' SELECT ' + select_fields + ' FROM ' + str(self.table_all) + ' ' + \
                       ' WHERE ' + str(self.relations_table_where) + command_id
 
-        print(command)
+        print('-->', command)
+        print('command_id-->', command_id)
         # Получаем
         result = self.execute_command(command=command)
 
